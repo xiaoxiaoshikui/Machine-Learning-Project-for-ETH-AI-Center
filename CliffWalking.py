@@ -1,161 +1,172 @@
+# adapted from https://gymnasium.farama.org/tutorials/training_agents/blackjack_tutorial/
+
+import gymnasium as gym
 import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+from collections import defaultdict
 
-# global variables
-BOARD_ROWS = 3
-BOARD_COLS = 4
-WIN_STATE = (0, 3)
-LOSE_STATE = (1, 3)
-START = (2, 0)
-DETERMINISTIC = True
-
-
-class State:
-    def __init__(self, state=START):
-        self.board = np.zeros([BOARD_ROWS, BOARD_COLS])
-        self.board[1, 1] = -1
-        self.state = state
-        self.isEnd = False
-        self.determine = DETERMINISTIC
-
-    # As a grid game, it needs a State to justify each state(position) of our agent, 
-    # giving reward according to its state
-    def giveReward(self):
-        if self.state == WIN_STATE:
-            return 1
-        elif self.state == LOSE_STATE:
-            return -1
-        else:
-            return 0
-
-    def isEndFunc(self):
-        if (self.state == WIN_STATE) or (self.state == LOSE_STATE):
-            self.isEnd = True
-            
-    # When our agent takes an action, the State should have a function to accept an
-    # action and return a legal position of next state.
-
-    def nxtPosition(self, action):
-        """
-        action: up, down, left, right
-        -------------
-        0 | 1 | 2| 3|
-        1 |
-        2 |
-        return next position
-        """
-        if self.determine:
-            if action == "up":
-                nxtState = (self.state[0] - 1, self.state[1])
-            elif action == "down":
-                nxtState = (self.state[0] + 1, self.state[1])
-            elif action == "left":
-                nxtState = (self.state[0], self.state[1] - 1)
-            else:
-                nxtState = (self.state[0], self.state[1] + 1)
-            # if next state legal
-            if (nxtState[0] >= 0) and (nxtState[0] <= (BOARD_ROWS -1)):
-                if (nxtState[1] >= 0) and (nxtState[1] <= (BOARD_COLS -1)):
-                    if nxtState != (1, 1):
-                        return nxtState
-            return self.state
-
-    def showBoard(self):
-        self.board[self.state] = 1
-        for i in range(0, BOARD_ROWS):
-            print('-----------------')
-            out = '| '
-            for j in range(0, BOARD_COLS):
-                if self.board[i, j] == 1:
-                    token = '*'
-                if self.board[i, j] == -1:
-                    token = 'z'
-                if self.board[i, j] == 0:
-                    token = '0'
-                out += token + ' | '
-            print(out)
-        print('-----------------')
-
-
-# Agent of player
 
 class Agent:
+    def __init__(
+        self,
+        learning_rate: float,
+        initial_epsilon: float,
+        epsilon_decay: float,
+        final_epsilon: float,
+        discount_factor: float = 0.95,
+    ):
+        """Initialize a Reinforcement Learning agent with an empty dictionary
+        of state-action values (q_values), a learning rate and an epsilon.
 
-    def __init__(self):
-        self.states = []
-        self.actions = ["up", "down", "left", "right"]
-        self.State = State()
-        self.lr = 0.2
-        self.exp_rate = 0.3
+        Args:
+            learning_rate: The learning rate
+            initial_epsilon: The initial epsilon value
+            epsilon_decay: The decay for epsilon
+            final_epsilon: The final epsilon value
+            discount_factor: The discount factor for computing the Q-value
+        """
+        self.q_values = defaultdict(lambda: np.zeros(env.action_space.n))
 
-        # initial state reward
-        self.state_values = {}
-        for i in range(BOARD_ROWS):
-            for j in range(BOARD_COLS):
-                self.state_values[(i, j)] = 0  # set initial value to 0
+        self.lr = learning_rate
+        self.discount_factor = discount_factor
 
-    def chooseAction(self):
-        # choose action with most expected value
-        mx_nxt_reward = 0
-        action = ""
+        self.epsilon = initial_epsilon
+        self.epsilon_decay = epsilon_decay
+        self.final_epsilon = final_epsilon
 
-        if np.random.uniform(0, 1) <= self.exp_rate:
-            action = np.random.choice(self.actions)
+        self.training_error = []
+
+    def get_action(self, obs: int) -> int:
+        """
+        Returns the best action with probability (1 - epsilon)
+        otherwise a random action with probability epsilon to ensure exploration.
+        """
+        # with probability epsilon return a random action to explore the environment
+        if np.random.random() < self.epsilon:
+            return env.action_space.sample()
+
+        # with probability (1 - epsilon) act greedily (exploit)
         else:
-            # greedy action
-            for a in self.actions:
-                # if the action is deterministic
-                nxt_reward = self.state_values[self.State.nxtPosition(a)]
-                if nxt_reward >= mx_nxt_reward:
-                    action = a
-                    mx_nxt_reward = nxt_reward
-        return action
+            return int(np.argmax(self.q_values[obs]))
 
-    def takeAction(self, action):
-        position = self.State.nxtPosition(action)
-        return State(state=position)
+    def update(
+        self,
+        obs: int,
+        action: int,
+        reward: float,
+        terminated: bool,
+        next_obs: int,
+    ):
+        """Updates the Q-value of an action."""
+        future_q_value = (not terminated) * np.max(self.q_values[next_obs])
+        temporal_difference = (
+            reward + self.discount_factor * future_q_value - self.q_values[obs][action]
+        )
 
-    def reset(self):
-        self.states = []
-        self.State = State()
+        self.q_values[obs][action] = (
+            self.q_values[obs][action] + self.lr * temporal_difference
+        )
+        self.training_error.append(temporal_difference)
 
-    def play(self, rounds=10):
-        i = 0
-        while i < rounds:
-            # to the end of game back propagate reward
-            if self.State.isEnd:
-                # back propagate
-                reward = self.State.giveReward()
-                # explicitly assign end state to reward values
-                self.state_values[self.State.state] = reward  # this is optional
-                print("Game End Reward", reward)
-                for s in reversed(self.states):
-                    reward = self.state_values[s] + self.lr * (reward - self.state_values[s])
-                    self.state_values[s] = round(reward, 3)
-                self.reset()
-                i += 1
-            else:
-                action = self.chooseAction()
-                # append trace
-                self.states.append(self.State.nxtPosition(action))
-                print("current position {} action {}".format(self.State.state, action))
-                # by taking the action, it reaches the next state
-                self.State = self.takeAction(action)
-                # mark is end
-                self.State.isEndFunc()
-                print("nxt state", self.State.state)
-                print("---------------------")
+    def decay_epsilon(self):
+        self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
 
-    def showValues(self):
-        for i in range(0, BOARD_ROWS):
-            print('----------------------------------')
-            out = '| '
-            for j in range(0, BOARD_COLS):
-                out += str(self.state_values[(i, j)]).ljust(6) + ' | '
-            print(out)
-        print('----------------------------------')
+
+def visualize_training(env, moving_average=False):
+    if moving_average:
+        rolling_length = n_episodes // 2
+        fig, axs = plt.subplots(ncols=3, figsize=(12, 5))
+        axs[0].set_title("Episode rewards")
+        # compute and assign a rolling average of the data to provide a smoother graph
+        reward_moving_average = (
+                np.convolve(
+                    np.array(env.return_queue).flatten(), np.ones(rolling_length), mode="valid"
+                )
+                / rolling_length
+        )
+        axs[0].plot(range(len(reward_moving_average)), reward_moving_average)
+        axs[1].set_title("Episode lengths")
+        length_moving_average = (
+                np.convolve(
+                    np.array(env.length_queue).flatten(), np.ones(rolling_length), mode="same"
+                )
+                / rolling_length
+        )
+        axs[1].plot(range(len(length_moving_average)), length_moving_average)
+        axs[2].set_title("Training Error")
+        training_error_moving_average = (
+                np.convolve(np.array(agent.training_error), np.ones(rolling_length), mode="same")
+                / rolling_length
+        )
+        axs[2].plot(range(len(training_error_moving_average)), training_error_moving_average)
+        plt.tight_layout()
+        plt.show()
+    else:
+        fig, axs = plt.subplots(ncols=3, figsize=(12, 5))
+        axs[0].set_title("Episode rewards")
+
+        axs[0].plot(range(n_episodes), np.array(env.return_queue).flatten())
+        axs[1].set_title("Episode lengths")
+
+        axs[1].plot(range(n_episodes), np.array(env.length_queue).flatten())
+        axs[2].set_title("Training Error")
+
+        axs[2].plot(range(len(agent.training_error)), np.array(agent.training_error))
+        plt.tight_layout()
+        plt.show()
 
 
 if __name__ == "__main__":
-    ag = Agent()
-    ag.play(50)
-    print(ag.showValues())
+    env = gym.make('CliffWalking-v0')
+    agent = Agent(
+        learning_rate=0.1,
+        initial_epsilon=0.01,
+        epsilon_decay=0.8,
+        final_epsilon=0,
+    )
+
+    n_episodes = 500
+
+    env = gym.wrappers.RecordEpisodeStatistics(env, deque_size=n_episodes)
+    for episode in tqdm(range(n_episodes)):
+        obs, _ = env.reset()
+        done = False
+
+        # play one episode
+        while not done:
+            action = agent.get_action(obs)
+            next_obs, reward, terminated, truncated, info = env.step(action)
+
+            # update the agent
+            agent.update(obs, action, reward, terminated, next_obs)
+
+            # update if the environment is done and the current obs
+            done = terminated or truncated
+            obs = next_obs
+
+        agent.decay_epsilon()
+
+    env.close()
+
+    visualize_training(env)
+
+    # render some episodes
+    env = gym.make('CliffWalking-v0', render_mode='human')
+    for _ in range(100):
+        obs, _ = env.reset()
+        done = False
+
+        # play one episode
+        while not done:
+            action = agent.get_action(obs)
+            next_obs, reward, terminated, truncated, info = env.step(action)
+
+            # update the agent
+            agent.update(obs, action, reward, terminated, next_obs)
+
+            # update if the environment is done and the current obs
+            done = terminated or truncated
+            obs = next_obs
+
+    env.close()
