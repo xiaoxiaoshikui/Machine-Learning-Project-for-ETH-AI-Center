@@ -73,7 +73,7 @@ class Agent:
         self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
 
 
-def visualize_training(env, moving_average=False):
+def visualize_training(env, agent, moving_average=False):
     if moving_average:
         rolling_length = n_episodes // 2
         fig, axs = plt.subplots(ncols=3, figsize=(12, 5))
@@ -149,7 +149,7 @@ if __name__ == "__main__":
 
     env.close()
 
-    visualize_training(env)
+    visualize_training(env, agent)
 
     # render some episodes
     env = gym.make('CliffWalking-v0', render_mode='human')
