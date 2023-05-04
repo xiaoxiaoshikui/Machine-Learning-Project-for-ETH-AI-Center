@@ -118,7 +118,6 @@ def visualize_training(env, agent, moving_average=False):
 
 
 if __name__ == "__main__":
-    env = gym.make('Taxi-v3')
     agent = Agent(
         learning_rate=0.1,
         initial_epsilon=0.01,
@@ -126,9 +125,15 @@ if __name__ == "__main__":
         final_epsilon=0,
     )
 
-    n_episodes = 1500
+    n_episodes = 3000
 
+    env = gym.make('Taxi-v3', render_mode='rgb_array')
     env = gym.wrappers.RecordEpisodeStatistics(env, deque_size=n_episodes)
+    env = gym.wrappers.RecordVideo(env,
+                                   video_folder='videos',
+                                   episode_trigger=lambda n: (n % (n_episodes//6) == 0 or n_episodes - n <= 5),
+                                   disable_logger=True)
+
     for episode in tqdm(range(n_episodes)):
         obs, _ = env.reset()
         done = False
@@ -152,21 +157,21 @@ if __name__ == "__main__":
     visualize_training(env, agent)
 
     # render some episodes
-    env = gym.make('Taxi-v3', render_mode='human')
-    for _ in range(100):
-        obs, _ = env.reset()
-        done = False
-
-        # play one episode
-        while not done:
-            action = agent.get_action(obs)
-            next_obs, reward, terminated, truncated, info = env.step(action)
-
-            # update the agent
-            agent.update(obs, action, reward, terminated, next_obs)
-
-            # update if the environment is done and the current obs
-            done = terminated or truncated
-            obs = next_obs
-
-    env.close()
+    # env = gym.make('Taxi-v3', render_mode='human')
+    # for _ in range(100):
+    #     obs, _ = env.reset()
+    #     done = False
+    #
+    #     # play one episode
+    #     while not done:
+    #         action = agent.get_action(obs)
+    #         next_obs, reward, terminated, truncated, info = env.step(action)
+    #
+    #         # update the agent
+    #         agent.update(obs, action, reward, terminated, next_obs)
+    #
+    #         # update if the environment is done and the current obs
+    #         done = terminated or truncated
+    #         obs = next_obs
+    #
+    # env.close()
