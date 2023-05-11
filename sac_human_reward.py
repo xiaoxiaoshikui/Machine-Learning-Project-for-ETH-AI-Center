@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import gym
 import numpy as np
+from utilities import visualize_training_progress
 
 # Define the neural networks for the value, Q, and policy functions
 class ValueNetwork(nn.Module):
@@ -178,6 +179,10 @@ class SAC:
         env = gym.make(env_name)
         obs = env.reset()
         epoch = 0
+
+        # store the rewards and episode_length for visualization
+        rewards = []
+        episode_lengths = []
         
         for t in range(num_epochs * num_steps_per_epoch):
             if t < self.replay_buffer.capacity:
@@ -211,3 +216,4 @@ class SAC:
                 
             if t % num_steps_per_epoch == 0:
                 print(f"Epoch: {epoch}, Reward: {episode_reward}, Episode Length: {episode_length}")
+            
