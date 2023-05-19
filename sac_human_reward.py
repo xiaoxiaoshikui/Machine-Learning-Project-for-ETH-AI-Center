@@ -183,6 +183,13 @@ class SAC:
         # store the rewards and episode_length for visualization
         rewards = []
         episode_lengths = []
+
+        # Move the SAC networks and replay buffer to the GPU
+        self.q1_net = self.q1_net.to('cuda')
+        self.q2_net = self.q2_net.to('cuda')
+        self.v_net = self.v_net.to('cuda')
+        self.policy_net = self.policy_net.to('cuda')
+        self.replay_buffer = self.replay_buffer.to('cuda')
         
         for t in range(num_epochs * num_steps_per_epoch):
             if t < self.replay_buffer.capacity:
@@ -191,9 +198,9 @@ class SAC:
             else:
                 # Sample a batch from the buffer and update the networks
                 self.update(batch_size)
-                if t % target_update_freq == 0:
+                if t % self.target_update_freq == 0:
                     self.update_target_networks()
-                
+
             # Run one episode and add the transitions to the buffer
             episode_reward = 0
             episode_length = 0
@@ -201,6 +208,9 @@ class SAC:
                 with torch.no_grad():
                     obs_tensor = torch.as_tensor(obs, dtype=torch.float32).unsqueeze(0)
                     act_tensor, _ = self.policy_net(obs_tensor)
+                     # Move observation and action tensors to the GPU
+                    obs_tensor = obs_tensor.to('cuda')
+                    act_tensor = act_tensor.to('cuda')
                     act = act_tensor.numpy()[0]
                 next_obs, rew, done, _ = env.step(act)
                 
@@ -216,4 +226,7 @@ class SAC:
                 
             if t % num_steps_per_epoch == 0:
                 print(f"Epoch: {epoch}, Reward: {episode_reward}, Episode Length: {episode_length}")
+        
+        # Visualize the training progress
+        visualize_training_progress(rewards, episode_lengths)
             
