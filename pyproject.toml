@@ -32,6 +32,7 @@ imageio = ">=2.14.1"
 black = "^23.3.0"
 conda-lock = "^1.4.0"
 pre-commit = "^3.3.1"
+pydocstyle = "^6.3.0"
 pylint = "^2.17.3"
 pyright = "^1.1.306"
 ruff = "^0.0.264"
@@ -56,3 +57,9 @@ typeCheckingMode = "basic"
 
 useLibraryCodeForTypes = true
 stubPath = "python-type-stubs"
+
+[tool.pylint.TYPECHECK]
+generated-members = "torch.*"
+
+[tool.pylint.MAIN]
+disable = "duplicate-code,too-many-arguments"

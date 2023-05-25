@@ -10,6 +10,8 @@ from gym.wrappers import RecordVideo
 from stable_baselines3.ppo.ppo import PPO
 from stable_baselines3.sac.sac import SAC
 
+from ..types import Step, Trajectories
+
 ALGORITHM = "ppo"
 ENVIRONMENT_NAME = "HalfCheetah-v3"
 
@@ -25,8 +27,8 @@ def record_videos(
     algorithm: Union[Type[PPO], Type[SAC]], environment: gym.wrappers.RecordVideo
 ):
     """Record videos of the training environment."""
-    trajectory_dataset = {}
-    trajectory = []
+    trajectory_dataset: Trajectories = {}
+    trajectory: list[Step] = []
 
     n_step = 0
 
