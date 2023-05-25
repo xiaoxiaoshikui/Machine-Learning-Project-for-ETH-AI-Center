@@ -7,17 +7,18 @@ import numpy as np
 import torch
 from torch import optim
 
+from ..types import TensorBatch, Trajectories
 from .network import Network
 
 
-def load_data(file_path):
+def load_data(file_path: str):
     """Load trajectory data from pickle file."""
     with open(file_path, "rb") as handle:
         trajectories = pickle.load(handle)
     return trajectories
 
 
-def partition_data(trajectories, batch_size):
+def partition_data(trajectories: Trajectories, batch_size: int):
     """Partitions the trajectories into non-overlapping batches of pairs."""
     indices = list(trajectories.keys())
     random.shuffle(indices)  # shuffle the indices to introduce randomness
@@ -34,10 +35,10 @@ def partition_data(trajectories, batch_size):
     return partitions
 
 
-def generate_batch(trajectories, pairs):
+def generate_batch(trajectories: Trajectories, pairs: list[tuple[int, int]]):
     """Generate a batch using the provided pairs of indices."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    batch = []
+    batch: TensorBatch = []
     for pair in pairs:
         obs0 = torch.tensor(
             np.array([entry["obs"] for entry in trajectories[pair[0]]]),
@@ -64,7 +65,12 @@ def generate_batch(trajectories, pairs):
 
 
 def train_reward_model(
-    reward_model, trajectories, epochs, batch_size, split_ratio=0.8, patience=10
+    reward_model: Network,
+    trajectories: Trajectories,
+    epochs: int,
+    batch_size: int,
+    split_ratio=0.8,
+    patience=10,
 ):
     """Train a reward model given trajectories data."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -145,7 +151,7 @@ def train_reward_model(
     return reward_model
 
 
-def compute_loss(batch, model, device):
+def compute_loss(batch: TensorBatch, model: Network, device: torch.device):
     """Compute the loss for a batch of data."""
     traj0_batch = torch.stack([traj0.clone().detach() for traj0, _ in batch]).to(device)
     traj1_batch = torch.stack([traj1.clone().detach() for _, traj1 in batch]).to(device)

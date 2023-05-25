@@ -9,17 +9,18 @@ import numpy as np
 import torch
 from torch import optim
 
+from ..types import TensorBatch, Trajectories
 from .network import Network
 
 
-def load_data(file_path):
+def load_data(file_path: str):
     """Load trajectory data from pickle file."""
     with open(file_path, "rb") as handle:
         trajectories = pickle.load(handle)
     return trajectories
 
 
-def partition_data(trajectories, batch_size):
+def partition_data(trajectories: Trajectories, batch_size: int):
     """Partition the trajectories into non-overlapping batches of pairs."""
     random.seed(123)  # set the seed
     indices = list(trajectories.keys())
@@ -37,10 +38,10 @@ def partition_data(trajectories, batch_size):
     return partitions
 
 
-def generate_batch(trajectories, pairs):
+def generate_batch(trajectories: Trajectories, pairs: list[tuple[int, int]]):
     """Generate a batch using the provided pairs of indices."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    batch = []
+    batch: TensorBatch = []
     for pair in pairs:
         obs0 = torch.tensor(
             np.array([entry["obs"] for entry in trajectories[pair[0]]]),
@@ -62,7 +63,7 @@ def generate_batch(trajectories, pairs):
     return batch
 
 
-def compute_loss(batch, model, device):
+def compute_loss(batch: TensorBatch, model: Network, device: torch.device):
     """Compute the loss for a batch of data."""
     traj0_batch = torch.stack([traj0.clone().detach() for traj0, _ in batch]).to(device)
     traj1_batch = torch.stack([traj1.clone().detach() for _, traj1 in batch]).to(device)
@@ -75,7 +76,9 @@ def compute_loss(batch, model, device):
     return probs_softmax, loss
 
 
-def train_reward_model(reward_model, trajectories, epochs, batch_size):
+def train_reward_model(
+    reward_model: Network, trajectories: Trajectories, epochs: int, batch_size: int
+):
     """Train a reward model given trajectories data."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     reward_model.to(device)

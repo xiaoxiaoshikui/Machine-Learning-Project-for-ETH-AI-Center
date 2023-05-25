@@ -13,7 +13,7 @@ from .network import Network
 class TrajectoryDataset(Dataset):
     """PyTorch Dataset for loading trajectories data."""
 
-    def __init__(self, file_path):
+    def __init__(self, file_path: str):
         with open(file_path, "rb") as handle:
             self.trajectories = pickle.load(handle)
         self.keys = list(self.trajectories.keys())
@@ -21,7 +21,7 @@ class TrajectoryDataset(Dataset):
     def __len__(self):
         return len(self.keys) // 2  # since we pair two trajectories
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int):
         # Pair trajectories
         key0, key1 = self.keys[2 * idx], self.keys[2 * idx + 1]
 
@@ -45,7 +45,9 @@ class TrajectoryDataset(Dataset):
         return obs1, obs0
 
 
-def train_reward_model(reward_model, dataloader, device, epochs):
+def train_reward_model(
+    reward_model: Network, dataloader: DataLoader, device: torch.device, epochs: int
+):
     optimizer = optim.Adam(reward_model.parameters(), lr=0.001)
     for epoch in range(epochs):
         epoch_loss = 0

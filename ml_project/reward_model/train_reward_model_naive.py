@@ -3,12 +3,13 @@ import pickle
 import random
 from os import path
 from pathlib import Path
+from typing import Union
 
 import numpy as np
 import torch
-from torch import optim
+from torch import Tensor, optim
 
-from ..types import Trajectories
+from ..types import Batch, Trajectories
 from .network import Network
 
 # Define file paths:
@@ -24,7 +25,7 @@ def sample_preference_batch(trajectories: Trajectories, batch_size: int):
     The tuples are sorted based on the (undiscounted) cumulative reward of the
     trajectories: (obs0, obs1) iff reward1 > reward0.
     """
-    batch: list[tuple[list[object], list[object]]] = []
+    batch: Batch = []
     for _ in range(batch_size):
         indices = random.sample(list(trajectories.keys()), 2)
 
@@ -69,14 +70,14 @@ def train_reward_model(
             # The size of the batch corresponds to the number of randomly
             # sampled tuples of trajectories
 
-            probs_sotmax = []
+            probs_sotmax: Union[Tensor, list[Tensor]] = []
             for traj0, traj1 in batch:
                 # For each tuple of trajectories in the batch I create the
                 # softmax value. I do this for each trajectory tuple in
                 # the batch. Summing those up, I get my final loss.
 
-                rewards0 = []
-                rewards1 = []
+                rewards0: list[Tensor] = []
+                rewards1: list[Tensor] = []
 
                 for step0, step1 in zip(traj0, traj1):
                     # for each step of the trajectory I predict the reward given the
