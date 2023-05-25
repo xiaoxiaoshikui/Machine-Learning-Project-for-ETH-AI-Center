@@ -10,6 +10,7 @@ This is the repository for the AI Center Projects in Machine Learning Research c
 
 ### Setting up WSL (recommended for Windows)
 
+
 1. Set up [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
 1. Open WSL command line and clone the repo using it (to a path NOT starting with `/mnt/`) instead of using a Windows command prompt of PowerShell. This will make the development environment faster.
 1. Add `export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0` to your shell profile (e.g., to the end of `~/.bashrc` or `~/.zshrc` or similar) to enable WSL to open windows and display GUIs.
