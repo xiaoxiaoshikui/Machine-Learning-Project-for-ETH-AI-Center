@@ -1,4 +1,3 @@
-"""Module for training a reward model from trajectory data."""
 import pickle
 import random
 from os import path
@@ -18,7 +17,9 @@ def load_data(file_path):
 
 
 def partition_data(trajectories, batch_size):
-    """Partition the trajectories into non-overlapping batches of pairs."""
+    """
+    Partitions the trajectories into non-overlapping batches of pairs.
+    """
     indices = list(trajectories.keys())
     random.shuffle(indices)  # shuffle the indices to introduce randomness
 
@@ -35,7 +36,9 @@ def partition_data(trajectories, batch_size):
 
 
 def generate_batch(trajectories, pairs):
-    """Generate a batch using the provided pairs of indices."""
+    """
+    Generates a batch using the provided pairs of indices.
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     batch = []
     for pair in pairs:
@@ -139,7 +142,9 @@ def train_reward_model(
 
 
 def compute_loss(batch, model, device):
-    """Compute the loss for a batch of data."""
+    """
+    Computes the loss for a batch of data.
+    """
     traj0_batch = torch.stack([traj0.clone().detach() for traj0, _ in batch]).to(device)
     traj1_batch = torch.stack([traj1.clone().detach() for _, traj1 in batch]).to(device)
 
@@ -152,7 +157,6 @@ def compute_loss(batch, model, device):
 
 
 def main():
-    """Run reward model training."""
     # File paths
     current_path = Path(__file__).parent.resolve()
     folder_path = path.join(current_path, "../rl/reward_data")

@@ -16,12 +16,24 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/yves" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1fc01d8-04ff-4b2e-9c55-360db44d5498" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ml_project/reward_model/train_reward_model_gian.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ml_project/reward_model/best_reward_model_state.pth" beforeDir="false" afterPath="$PROJECT_DIR$/ml_project/reward_model/best_reward_model_state.pth" afterDir="false" />
+    <list default="true" id="5945ff9a-d7cc-4e96-a885-69a66e487eaa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ml_project/reward_model/train_reward_model_mergeDataloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Machine-Learning-Project-for-ETH-AI-Center.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Machine-Learning-Project-for-ETH-AI-Center.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ml_project/reward_model/train_reward_model.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,26 +41,46 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2QBnNG9egXqGYro4S20p9CIuEpp" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2QHlkKHQjTSVYAUuwyM0BJSi9ar" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.train_reward_model_validation">
-    <configuration name="train_naive_reward_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.train_reward_model_mergeDataloader">
+    <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Machine-Learning-Project-for-ETH-AI-Center" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Yves.Bicker\anaconda3\envs\newEnv\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_reward_model_mergeDataloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Machine-Learning-Project-for-ETH-AI-Center" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -60,7 +92,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ml_project/reward_model/train_naive_reward_model.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Yves.Bicker\Desktop\Machine-Learning-Project-for-ETH-AI-Center\ml_project\reward_model\train_reward_model_mergeDataloader.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -69,108 +101,24 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train_reward_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Machine-Learning-Project-for-ETH-AI-Center" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ml_project/reward_model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ml_project/reward_model/train_reward_model.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="train_reward_model_dataLoader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Machine-Learning-Project-for-ETH-AI-Center" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ml_project/reward_model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ml_project/reward_model/train_reward_model_dataLoader.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="train_reward_model_gian" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Machine-Learning-Project-for-ETH-AI-Center" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ml_project/reward_model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ml_project/reward_model/train_reward_model_gian.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="train_reward_model_validation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Machine-Learning-Project-for-ETH-AI-Center" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ml_project/reward_model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ml_project/reward_model/train_reward_model_validation.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.train_reward_model_mergeDataloader" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train_reward_model_validation" />
-        <item itemvalue="Python.train_reward_model_gian" />
-        <item itemvalue="Python.train_naive_reward_model" />
-        <item itemvalue="Python.train_reward_model_dataLoader" />
-        <item itemvalue="Python.train_reward_model" />
+        <item itemvalue="Python.train_reward_model_mergeDataloader" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a1fc01d8-04ff-4b2e-9c55-360db44d5498" name="Default Changelist" comment="" />
-      <created>1684835800945</created>
+      <changelist id="5945ff9a-d7cc-4e96-a885-69a66e487eaa" name="Default Changelist" comment="" />
+      <created>1685018529938</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1684835800945</updated>
+      <updated>1685018529938</updated>
     </task>
     <servers />
   </component>
@@ -179,44 +127,75 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/yves" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="512" y="142" key="FileChooserDialogImpl" timestamp="1684851126017">
-      <screen x="0" y="0" width="1463" height="775" />
+    <state x="-3104" y="-366" width="1089" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1685018676409">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state x="512" y="142" key="FileChooserDialogImpl/0.0.1463.775@0.0.1463.775" timestamp="1684851126017" />
-    <state width="1442" height="263" key="GridCell.Tab.0.bottom" timestamp="1684852796447">
-      <screen x="0" y="0" width="1463" height="775" />
+    <state x="-3104" y="-366" width="1089" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685018676409" />
+    <state x="-2779" y="-266" key="FileChooserDialogImpl" timestamp="1685018885486">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state width="1442" height="263" key="GridCell.Tab.0.bottom/0.0.1463.775@0.0.1463.775" timestamp="1684852796447" />
-    <state width="2539" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1392@0.0.2560.1392" timestamp="1684837247025" />
-    <state width="1442" height="263" key="GridCell.Tab.0.center" timestamp="1684852796446">
-      <screen x="0" y="0" width="1463" height="775" />
+    <state x="-2779" y="-266" key="FileChooserDialogImpl/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685018885486" />
+    <state width="2539" height="368" key="GridCell.Tab.0.bottom" timestamp="1685023009477">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state width="1442" height="263" key="GridCell.Tab.0.center/0.0.1463.775@0.0.1463.775" timestamp="1684852796446" />
-    <state width="2539" height="397" key="GridCell.Tab.0.center/0.0.2560.1392@0.0.2560.1392" timestamp="1684837247025" />
-    <state width="1442" height="263" key="GridCell.Tab.0.left" timestamp="1684852796446">
-      <screen x="0" y="0" width="1463" height="775" />
+    <state width="2539" height="368" key="GridCell.Tab.0.bottom/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023009477" />
+    <state width="2539" height="368" key="GridCell.Tab.0.center" timestamp="1685023009477">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state width="1442" height="263" key="GridCell.Tab.0.left/0.0.1463.775@0.0.1463.775" timestamp="1684852796446" />
-    <state width="2539" height="397" key="GridCell.Tab.0.left/0.0.2560.1392@0.0.2560.1392" timestamp="1684837247025" />
-    <state width="1442" height="263" key="GridCell.Tab.0.right" timestamp="1684852796446">
-      <screen x="0" y="0" width="1463" height="775" />
+    <state width="2539" height="368" key="GridCell.Tab.0.center/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023009477" />
+    <state width="2539" height="368" key="GridCell.Tab.0.left" timestamp="1685023009477">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state width="1442" height="263" key="GridCell.Tab.0.right/0.0.1463.775@0.0.1463.775" timestamp="1684852796446" />
-    <state width="2539" height="397" key="GridCell.Tab.0.right/0.0.2560.1392@0.0.2560.1392" timestamp="1684837247025" />
-    <state x="782" y="341" key="SettingsEditor" timestamp="1684835896366">
-      <screen x="0" y="0" width="2560" height="1392" />
+    <state width="2539" height="368" key="GridCell.Tab.0.left/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023009477" />
+    <state width="2539" height="368" key="GridCell.Tab.0.right" timestamp="1685023009477">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
     </state>
-    <state x="782" y="341" key="SettingsEditor/0.0.2560.1392@0.0.2560.1392" timestamp="1684835896366" />
+    <state width="2539" height="368" key="GridCell.Tab.0.right/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023009477" />
+    <state width="2539" height="368" key="GridCell.Tab.1.bottom" timestamp="1685023015066">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
+    </state>
+    <state width="2539" height="368" key="GridCell.Tab.1.bottom/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023015066" />
+    <state width="2539" height="368" key="GridCell.Tab.1.center" timestamp="1685023015066">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
+    </state>
+    <state width="2539" height="368" key="GridCell.Tab.1.center/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023015066" />
+    <state width="2539" height="368" key="GridCell.Tab.1.left" timestamp="1685023015066">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
+    </state>
+    <state width="2539" height="368" key="GridCell.Tab.1.left/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023015066" />
+    <state width="2539" height="368" key="GridCell.Tab.1.right" timestamp="1685023015066">
+      <screen x="-3840" y="-717" width="2560" height="1384" />
+    </state>
+    <state width="2539" height="368" key="GridCell.Tab.1.right/-3840.-717.2560.1384/0.0.1463.775@-3840.-717.2560.1384" timestamp="1685023015066" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ml_project/reward_model/train_reward_model_mergeDataloader.py</url>
+          <line>136</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
