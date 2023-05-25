@@ -21,7 +21,7 @@
       "name": "Python: Module",
       "type": "python",
       "request": "launch",
-      "module": "ml_project.reward_model.${fileBasenameNoExtension}",
+      "module": "ml_project.${fileDirnameBasename}.${fileBasenameNoExtension}",
       "justMyCode": true
     }
   ]
