@@ -16,7 +16,7 @@ This is the repository for the AI Center Projects in Machine Learning Research c
 1. If you are using VSCode, run `code .` inside the project directory to open it (or if you've opened the project before, you can access it from `File -> Open Recent`).
 1. Do all further setup inside the WSL command line or from the terminal of VSCode opened from WSL.
 
-### Install dependencies
+### Installing dependencies
 
 1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (Anaconda also works, but is not necessary)
 1. Navigate to the project directory, then run `conda create --name ml_project --file conda-<linux/osx>-64.lock` (replace `<linux/osx>` with your OS) to create the Anaconda environment.
@@ -24,15 +24,15 @@ This is the repository for the AI Center Projects in Machine Learning Research c
 1. Run `poetry install` in the project directory to install dependencies of the project.
 1. To install MuJoCo, follow the [instructions in the GitHub repo](https://github.com/openai/mujoco-py/#install-mujoco).
 1. Add `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco210/bin` to your shell profile and start a new shell to make MuJoCo discoverable.
-1. Make sure all the required libraries are installed by running `sudo apt-get install gcc libosmesa6-dev libgl1-mesa-glx libglfw3 patchelf`
-1. If you don't have `ffmpeg` installed yet, [install it to your system](https://ffmpeg.org/download.html) or run `pip install imageio-ffmpeg` to install it in the project locally.
+1. Make sure all the required libraries are installed by running `sudo apt install gcc libosmesa6-dev libgl1-mesa-glx libglfw3 patchelf`
+1. If you don't have `ffmpeg` installed yet, [install it on your system](https://ffmpeg.org/download.html) or run `pip install imageio-ffmpeg` to install it in the project locally.
 1. Run `pre-commit install` to install pre-commit hooks (they will run some checks before each commit to the repo).
 
-### Set up VSCode (recommended)
+### Setting up VSCode (recommended)
 
 1. Install and open [VSCode](https://code.visualstudio.com/download)
 1. Open the command palette, choose `Python: Select Interpreter`, then select the virtual environment created by Anaconda.
-   *Note: If the desired environment is not in the list, you can find the location of the environments by running `conda env list` and adding a new entry to the list.*
+   *Note: If the desired environment is not in the list, you can find the location of the environments by running `conda env list`, then add the interpreter as a new entry.*
 1. Start a new terminal. VSCode will automatically activate the selected environment.
 1. Install these VSCode extensions (by searching for them on the extensions tab): `charliermarsh.ruff`, `njpwerner.autodocstring`, `visualstudioexptteam.vscodeintellicode`, `ms-python.black-formatter`, `ms-python.isort`, `ms-python.vscode-pylance`, `ms-python.pylint`, `ms-python.python`, `kevinrose.vsc-python-indent`
 
@@ -53,7 +53,7 @@ This is the repository for the AI Center Projects in Machine Learning Research c
 
 ## Running the code
 
-You can run scripts specified in `pyproject.toml` with `poetry run <script name>`. For example, to run the `gridworld` script, run `poetry run gridworld`.
+You can run scripts specified in `pyproject.toml` with `poetry run <script name>`. For example, to run the `gridworld` script, run `poetry run gridworld` (you might also need to run `poetry install` before to update the dependencies).
 
 To run the training of RL agents, run `poetry run train`. To generate videos of the trained agents, run `poetry run generate`.
 
@@ -62,5 +62,3 @@ To launch the web interface, run:
 ```bash
 poetry run flask --app ml_project/web_interface run
 ```
-
-(might also need to run `poetry install` to update the dependencies)
