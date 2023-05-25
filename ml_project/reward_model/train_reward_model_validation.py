@@ -5,8 +5,9 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.optim as optim
-from network import Network
+from torch import optim
+
+from .network import Network
 
 
 def load_data(file_path):
@@ -17,9 +18,7 @@ def load_data(file_path):
 
 
 def partition_data(trajectories, batch_size):
-    """
-    Partitions the trajectories into non-overlapping batches of pairs.
-    """
+    """Partitions the trajectories into non-overlapping batches of pairs."""
     indices = list(trajectories.keys())
     random.shuffle(indices)  # shuffle the indices to introduce randomness
 
@@ -36,9 +35,7 @@ def partition_data(trajectories, batch_size):
 
 
 def generate_batch(trajectories, pairs):
-    """
-    Generates a batch using the provided pairs of indices.
-    """
+    """Generate a batch using the provided pairs of indices."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     batch = []
     for pair in pairs:
@@ -93,7 +90,7 @@ def train_reward_model(
         train_loss = 0
         for pairs in train_partitions:
             batch = generate_batch(trajectories, pairs)
-            probs_softmax, loss = compute_loss(batch, reward_model, device)
+            _probs_softmax, loss = compute_loss(batch, reward_model, device)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -129,24 +126,27 @@ def train_reward_model(
             no_improvement_epochs += 1
             if no_improvement_epochs >= patience:
                 print(
-                    f"No improvement after for {patience} epochs, therefore stopping training."
+                    f"No improvement after for {patience} epochs"
+                    ", therefore stopping training."
                 )
-                break  # break instead of return, so that the function can return the best model state
+                # break instead of return, so that the function can return the
+                # best model state
+
+                break
 
     # hold the weights and biases for the best model state during trainn
     reward_model.load_state_dict(best_model_state)
 
     # how we can call the parameters for later use
     # model = Network(...)  # create a new instance of your model
-    # model.load_state_dict(torch.load('best_model_state.pth'))  # load the state dict from file
+    # load the state dict from file
+    # model.load_state_dict(torch.load('best_model_state.pth'))
 
     return reward_model
 
 
 def compute_loss(batch, model, device):
-    """
-    Computes the loss for a batch of data.
-    """
+    """Compute the loss for a batch of data."""
     traj0_batch = torch.stack([traj0.clone().detach() for traj0, _ in batch]).to(device)
     traj1_batch = torch.stack([traj1.clone().detach() for _, traj1 in batch]).to(device)
 
@@ -168,7 +168,8 @@ def main():
     trajectories = load_data(file_name)
 
     # # Sample and analyze data
-    # batch = generate_batch(trajectories, partition_data(trajectories, batch_size=1)[0])
+    # batch = generate_batch(trajectories,
+    #   partition_data(trajectories, batch_size=1)[0])
     # input_dim = np.array(batch[0][0][0]).shape[0]
 
     # Initialize network
@@ -179,7 +180,8 @@ def main():
 
     # That's how we can call the best model parameters for later use
     # model = Network(...)  # create a new instance of your model
-    # model.load_state_dict(torch.load('best_model_state.pth'))  # load the state dict from file
+    # load the state dict from file
+    # model.load_state_dict(torch.load('best_model_state.pth'))
 
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+"""Module for training an RL agent using a custom reward model."""
+
 import pickle
 import random
 from os import path
@@ -5,8 +7,9 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.optim as optim
-from network import Network
+from torch import optim
+
+from .network import Network
 
 
 def load_data(file_path):
@@ -17,9 +20,7 @@ def load_data(file_path):
 
 
 def partition_data(trajectories, batch_size):
-    """
-    Partitions the trajectories into non-overlapping batches of pairs.
-    """
+    """Partition the trajectories into non-overlapping batches of pairs."""
     random.seed(123)  # set the seed
     indices = list(trajectories.keys())
     random.shuffle(indices)  # shuffle the indices to introduce randomness
@@ -37,9 +38,7 @@ def partition_data(trajectories, batch_size):
 
 
 def generate_batch(trajectories, pairs):
-    """
-    Generates a batch using the provided pairs of indices.
-    """
+    """Generate a batch using the provided pairs of indices."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     batch = []
     for pair in pairs:
@@ -64,9 +63,7 @@ def generate_batch(trajectories, pairs):
 
 
 def compute_loss(batch, model, device):
-    """
-    Computes the loss for a batch of data.
-    """
+    """Compute the loss for a batch of data."""
     traj0_batch = torch.stack([traj0.clone().detach() for traj0, _ in batch]).to(device)
     traj1_batch = torch.stack([traj1.clone().detach() for _, traj1 in batch]).to(device)
 
@@ -103,6 +100,7 @@ def train_reward_model(reward_model, trajectories, epochs, batch_size):
 
 
 def main():
+    """Run RL agent training."""
     # File paths
     current_path = Path(__file__).parent.resolve()
     folder_path = path.join(current_path, "../rl/reward_data")
@@ -112,7 +110,8 @@ def main():
     trajectories = load_data(file_name)
 
     # Sample and analyze data
-    # batch = generate_batch(trajectories, partition_data(trajectories, batch_size=1)[0])
+    # batch = generate_batch(trajectories,
+    #   partition_data(trajectories, batch_size=1)[0])
     # input_dim = np.array(batch[0][0][0]).shape[0]
 
     # Initialize network

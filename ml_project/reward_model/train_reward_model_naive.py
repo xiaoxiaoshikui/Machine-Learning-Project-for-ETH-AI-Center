@@ -6,26 +6,25 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.optim as optim
-from network import Network
+from torch import optim
+
+from ..types import Trajectories
+from .network import Network
 
 # Define file paths:
 current_path = Path(__file__).parent.resolve()
 folder_path = path.join(current_path, "../rl/reward_data")
 file_name = path.join(folder_path, "ppo_HalfCheetah-v4_obs_reward_dataset.pkl")
 
-# Load data from file:
-with open(file_name, "rb") as handle:
-    trajectories = pickle.load(handle)
 
-
-def sample_preference_batch(trajectories, batch_size):
+def sample_preference_batch(trajectories: Trajectories, batch_size: int):
     """
-    Creates a random batch consisting of tuples of observations from two trajectories.
+    Create a random batch consisting of tuples of observations from two trajectories.
+
     The tuples are sorted based on the (undiscounted) cumulative reward of the
     trajectories: (obs0, obs1) iff reward1 > reward0.
     """
-    batch = []
+    batch: list[tuple[list[object], list[object]]] = []
     for _ in range(batch_size):
         indices = random.sample(list(trajectories.keys()), 2)
 
@@ -46,7 +45,9 @@ def sample_preference_batch(trajectories, batch_size):
 # train model using loss in https://arxiv.org/pdf/1904.06387.pdf
 
 
-def train_reward_model(reward_model, trajectories, epochs, batch_size):
+def train_reward_model(
+    reward_model: Network, trajectories: Trajectories, epochs: int, batch_size: int
+):
     # Move model to device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     reward_model.to(device)
@@ -57,7 +58,7 @@ def train_reward_model(reward_model, trajectories, epochs, batch_size):
     # Start training loop
     for epoch in range(epochs):
         epoch_loss = 0
-        for i in range(0, len(trajectories), batch_size):
+        for _ in range(0, len(trajectories), batch_size):
             # this loop is a bit arbitrarily defined. Here I sample 25 times
             # (length of trajectories) randomly and order
             # tuple of trajectories with the given batch size. I do
@@ -121,10 +122,21 @@ def train_reward_model(reward_model, trajectories, epochs, batch_size):
         print(f"Epoch {epoch + 1}/{epochs}, Loss: {avg_epoch_loss}")
 
 
-# Sample and analyze data:
-batch = sample_preference_batch(trajectories, batch_size=2)
-input_dim = np.array(batch[0][0][0]).shape[0]
+def main():
+    # Load data from file:
+    with open(file_name, "rb") as handle:
+        trajectories: Trajectories = pickle.load(handle)
 
-# Initialize network
-reward_model = Network(layer_num=3, input_dim=input_dim, hidden_dim=256, output_dim=1)
-train_reward_model(reward_model, trajectories, epochs=100, batch_size=2)
+    # Sample and analyze data:
+    batch = sample_preference_batch(trajectories, batch_size=2)
+    input_dim = np.array(batch[0][0][0]).shape[0]
+
+    # Initialize network
+    reward_model = Network(
+        layer_num=3, input_dim=input_dim, hidden_dim=256, output_dim=1
+    )
+    train_reward_model(reward_model, trajectories, epochs=100, batch_size=2)
+
+
+if __name__ == "__main__":
+    main()

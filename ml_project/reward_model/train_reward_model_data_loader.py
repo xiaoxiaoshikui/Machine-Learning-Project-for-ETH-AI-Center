@@ -4,9 +4,10 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.optim as optim
-from network import Network
+from torch import optim
 from torch.utils.data import DataLoader, Dataset
+
+from .network import Network
 
 
 class TrajectoryDataset(Dataset):
@@ -40,8 +41,8 @@ class TrajectoryDataset(Dataset):
 
         if reward1 > reward0:
             return obs0, obs1
-        else:
-            return obs1, obs0
+
+        return obs1, obs0
 
 
 def train_reward_model(reward_model, dataloader, device, epochs):
