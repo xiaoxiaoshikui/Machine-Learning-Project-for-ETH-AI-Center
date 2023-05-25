@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
+from ..types import Batch, Trajectories
 from .network import Network
 
 current_path = Path(__file__).parent.resolve()
@@ -13,14 +14,14 @@ folder_path = path.join(current_path, "../rl/reward_data")
 file_name = path.join(folder_path, "ppo_HalfCheetah-v4_obs_reward_dataset.pkl")
 
 
-def sample_preference_batch(trajectories, batch_size=32):
+def sample_preference_batch(trajectories: Trajectories, batch_size=32):
     """
     Create a random batch consisting of tuples of observations from two trajectories.
 
     The tuples are sorted based on the (undiscounted) cumulative reward of the
     trajectories: (obs0, obs1) iff reward1 > reward0.
     """
-    batch = []
+    batch: Batch = []
     for _ in range(batch_size):
         indices = random.sample(list(trajectories.keys()), 2)
 

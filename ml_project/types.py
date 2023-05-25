@@ -2,6 +2,8 @@
 
 from typing import TypedDict
 
+from torch import Tensor
+
 
 class Step(TypedDict):
     """Trajectory dictionary type."""
@@ -11,3 +13,5 @@ class Step(TypedDict):
 
 
 Trajectories = dict[int, list[Step]]
+Batch = list[tuple[list[object], list[object]]]
+TensorBatch = list[tuple[Tensor, Tensor]]

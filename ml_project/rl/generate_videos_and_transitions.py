@@ -28,7 +28,7 @@ def record_videos(
 ):
     """Record videos of the training environment."""
     trajectory_dataset: Trajectories = {}
-    trajectory = []
+    trajectory: list[Step] = []
 
     n_step = 0
 
@@ -46,7 +46,7 @@ def record_videos(
                 i = n_step % RECORD_INTERVAL
                 if i < RECORD_LENGTH:
                     if i == 0:
-                        trajectory: list[Step] = []
+                        trajectory = []
 
                     trajectory.append({"obs": obs, "reward": reward})
 

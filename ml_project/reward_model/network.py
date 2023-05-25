@@ -1,6 +1,6 @@
 """Module for instantiating a neural network."""
 import torch
-from torch import nn
+from torch import Tensor, nn
 
 
 class Network(nn.Module):
@@ -25,10 +25,10 @@ class Network(nn.Module):
         self.last_layer = nn.Linear(layers_unit[-1], output_dim)
         self.network_init()
 
-    def forward(self, data):
+    def forward(self, data: Tensor):
         return self._forward(data)
 
-    def _forward(self, data):
+    def _forward(self, data: Tensor):
         for layer in self.layers:
             data = self.activation(layer(data))
         data = self.last_layer(data)
