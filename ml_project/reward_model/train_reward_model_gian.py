@@ -11,8 +11,8 @@ from network import Network
 def sample_preference_batch(trajectories, batch_size=32):
     """
     Creates a random batch consisting of tuples of observations from two trajectories.
-    The tuples are sorted based on the (undiscounted) cumulative reward of the trajectories:
-    (obs0, obs1) iff reward1 > reward0.
+    The tuples are sorted based on the (undiscounted) cumulative reward of the
+    trajectories:(obs0, obs1) iff reward1 > reward0.
     """
     batch = []
     for _ in range(batch_size):
