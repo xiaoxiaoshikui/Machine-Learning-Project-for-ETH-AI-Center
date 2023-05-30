@@ -15,7 +15,7 @@ from .network import Network
 # File paths
 script_path = Path(__file__).parent.resolve()
 file_path = path.join(
-    script_path, "..", "rl", "reward_data", "ppo_HalfCheetah-v3_obs_reward_dataset.pkl"
+    script_path, "..", "rl", "reward_data", "sac_HalfCheetah-v3_obs_reward_dataset.pkl"
 )
 
 
