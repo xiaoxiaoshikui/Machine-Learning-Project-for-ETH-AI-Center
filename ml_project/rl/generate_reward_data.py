@@ -9,7 +9,7 @@ import gym
 from stable_baselines3.ppo.ppo import PPO
 from stable_baselines3.sac.sac import SAC
 
-ALGORITHM = "ppo"
+ALGORITHM = "sac"
 ENVIRONMENT_NAME = "HalfCheetah-v3"
 
 STEPS_PER_CHECKPOINT = 10000

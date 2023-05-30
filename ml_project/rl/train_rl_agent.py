@@ -70,6 +70,7 @@ def main():
 
     env = make_vec_env(ENVIRONMENT_NAME, n_envs=cpu_count)
 
+    # here we can use the reward model
     if USE_REWARD_MODEL:
         env = RewardVecEnvWrapper(env, reward_fn=CustomReward())
 
@@ -86,7 +87,7 @@ def main():
 
     iterations = 10
 
-    steps_per_iteration = 250000
+    steps_per_iteration = 5000
 
     for i in range(iterations):
         model.learn(

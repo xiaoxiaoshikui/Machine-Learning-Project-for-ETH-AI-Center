@@ -12,7 +12,7 @@ from stable_baselines3.sac.sac import SAC
 
 from ..types import Step, Trajectories
 
-ALGORITHM = "ppo"
+ALGORITHM = "sac"
 ENVIRONMENT_NAME = "HalfCheetah-v3"
 
 RECORD_INTERVAL = 500
@@ -31,6 +31,8 @@ def record_videos(
     observations: list[Step] = []
 
     n_step = 0
+    # max_videos = 20  # Define your maximum videos here
+    video_count = 0
 
     for n_checkpoint, file in enumerate(os.listdir(models_path)):
         if file.startswith(ALGORITHM + "_" + ENVIRONMENT_NAME):
@@ -52,6 +54,12 @@ def record_videos(
 
                     if i == RECORD_LENGTH - 1:
                         obs_dataset[n_step - RECORD_LENGTH + 1] = observations
+                        video_count += 1  # Increment the video count
+
+                # Break the loop if maximum videos have been recorded
+                # if video_count >= max_videos:
+                #    print(f"Stopped recording after {video_count} videos.")
+                #    return obs_dataset
 
                 if terminated:
                     obs = environment.reset()
@@ -66,7 +74,7 @@ def main():
     env = gym.make(ENVIRONMENT_NAME)
     env = RecordVideo(
         env,
-        video_folder=path.join(script_path, "..", "static", "videos"),
+        video_folder=path.join(script_path, "..", "static", "sac_videos"),
         step_trigger=lambda n: n % RECORD_INTERVAL == 0,
         video_length=RECORD_LENGTH,
         name_prefix=f"{ALGORITHM}-{ENVIRONMENT_NAME}",

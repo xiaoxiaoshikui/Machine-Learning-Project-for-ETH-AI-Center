@@ -11,10 +11,10 @@ from uuid import uuid4
 from flask import Flask, abort, render_template, request, session
 
 current_path = Path(__file__).parent.resolve()
-videos_path = path.join(current_path, "static", "videos")
+videos_path = path.join(current_path, "static", "gSDE_sac_videos")
 
 output_path = path.join(current_path, "output")
-preferences_path = path.join(output_path, "preferences.csv")
+preferences_path = path.join(output_path, "gSDE_sac_preferences.csv")
 
 # Create output directory and preferences file if they do not exist yet
 Path(output_path).mkdir(exist_ok=True)
