@@ -31,7 +31,7 @@ def record_videos(
     observations: list[Step] = []
 
     n_step = 0
-    # max_videos = 20  # Define your maximum videos here
+    max_videos = 50  # Define your maximum videos here
     video_count = 0
 
     for n_checkpoint, file in enumerate(os.listdir(models_path)):
@@ -57,9 +57,9 @@ def record_videos(
                         video_count += 1  # Increment the video count
 
                 # Break the loop if maximum videos have been recorded
-                # if video_count >= max_videos:
-                #    print(f"Stopped recording after {video_count} videos.")
-                #    return obs_dataset
+                if video_count >= max_videos:
+                    print(f"Stopped recording after {video_count} videos.")
+                    return obs_dataset
 
                 if terminated:
                     obs = environment.reset()
