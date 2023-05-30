@@ -8,13 +8,13 @@ import numpy as np
 from numpy.typing import NDArray
 
 current_path = Path(__file__).parent.resolve()
-preference_data_path = path.join(current_path, "..", "output", "sac_preferences.csv")
+preference_data_path = path.join(current_path, "..", "output", "preferences.csv")
 observation_data_path = path.join(
     current_path,
     "..",
     "rl",
     "observation_data_corresponding_to_videos",
-    "sac_HalfCheetah-v3_obs_dataset.pkl",
+    "ppo_HalfCheetah-v3_obs_dataset.pkl",
 )
 
 

@@ -10,12 +10,12 @@ from torch import optim
 from torch.nn import MSELoss
 from torch.utils.data import DataLoader, Dataset, random_split
 
-from .network import Network
+from .networks_old import Network
 
 # File paths
 script_path = Path(__file__).parent.resolve()
 file_path = path.join(
-    script_path, "..", "rl", "reward_data", "sac_HalfCheetah-v3_obs_reward_dataset.pkl"
+    script_path, "..", "rl", "reward_data", "ppo_HalfCheetah-v3_obs_reward_dataset.pkl"
 )
 
 
@@ -134,7 +134,7 @@ def main():
     dataset = TrajectoryDataset(file_path)
 
     # Initialize network
-    reward_model = Network(layer_num=3, input_dim=17, hidden_dim=256, output_dim=1)
+    reward_model = Network(layer_num=3, input_dim=40, hidden_dim=256, output_dim=1)
 
     # Train model
     train_reward_model(reward_model, dataset, epochs=100, batch_size=32)
